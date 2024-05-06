@@ -27,9 +27,23 @@ filtered_tokens = [word for word in tokenized_words if word.lower() not in stop_
 print("Filtered Tokens after Stop Words Removal:", filtered_tokens)
 
 
+from nltk.stem import PorterStemmer
+stemmer = PorterStemmer()
+stemmed_tokens = [stemmer.stem(word) for word in filtered_tokens]
+print("Stemmed Tokens:", stemmed_tokens)
+
 from nltk.stem import WordNetLemmatizer 
 lemmatizer = WordNetLemmatizer()
 lemmatized_tokens = [lemmatizer.lemmatize(word) for word in filtered_tokens]
 print("Lemmatized Tokens:", lemmatized_tokens)
 
 preprocessed_text = ' '.join(lemmatized_tokens)
+
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+tfidf_vectorizer = TfidfVectorizer()
+tfidf_representation = tfidf_vectorizer.fit_transform([preprocessed_text])
+
+print("Preprocessed Text:", preprocessed_text)
+print("\nTF-IDF Representation:")
+print(tfidf_representation.toarray())
